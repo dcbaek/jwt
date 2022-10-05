@@ -1,4 +1,4 @@
-package com.example.jwt.auth;
+package com.example.jwt.config.auth;
 
 import com.example.jwt.model.User;
 import com.example.jwt.repository.UserRepository;
@@ -20,6 +20,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
         System.out.println("PrincipalDetailsService의 loadUserByUsername");
         User userEntity = userRepository.findByUsername(username);
+        System.out.println("userEntity: " + userEntity);
         return new PrincipalDetails(userEntity);
     }
 }
