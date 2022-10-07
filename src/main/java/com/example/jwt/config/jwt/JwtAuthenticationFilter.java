@@ -26,11 +26,10 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final AuthenticationManager authenticationManager;
-
     // /login 요청을 하면 로그인 시도를 위해서 실행되는 함수
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
 
         System.out.println("JweAuthentication 로그인 시도중");
 
@@ -51,10 +50,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             //PrincipalDetailsService의 loadByUsername() 함수가 실행됨
             Authentication authentication =
-                    authenticationManager.authenticate(authenticationToken);
+                    getAuthenticationManager().authenticate(authenticationToken);
 
             // authentication 객체가 session영역에 저장됨 => 로그인이 되었다는 뜻
             PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
             System.out.println(principalDetails.getUser().getUsername());
             System.out.println("1==============================");
             return authentication;
@@ -84,6 +84,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                         .sign(Algorithm.HMAC512("cos"));
 
 
-        super.successfulAuthentication(request, response, chain, authResult);
+        response.addHeader("Authorization", "Bearer" + jwtToken);
     }
 }
