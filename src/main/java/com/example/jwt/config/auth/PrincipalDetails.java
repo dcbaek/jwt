@@ -9,22 +9,16 @@ import java.awt.print.PrinterIOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Data
 public class PrincipalDetails implements UserDetails {
 
     private User user;
 
-    public PrincipalDetails(User user) {
+    public PrincipalDetails(User user){
         this.user = user;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        user.getRolesList().forEach(r-> {
-            authorities.add(()->r);
-        });
-        return authorities;
+    public User getUser() {
+        return user;
     }
 
     @Override
@@ -55,5 +49,14 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        user.getRoleList().forEach(r -> {
+            authorities.add(()->{ return r;});
+        });
+        return authorities;
     }
 }
