@@ -22,6 +22,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
         log.info("PrincipalDetailsService : 진입");
         User user = userRepository.findByUsername(username);
+        log.info("user : {}", user);
 
         return new PrincipalDetails(user);
     }

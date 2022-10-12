@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public class PrincipalDetails implements UserDetails {
 
-    private User user;
+    private final User user;
 
     public PrincipalDetails(User user){
         this.user = user;
@@ -22,13 +22,13 @@ public class PrincipalDetails implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return user.getPassword();
+    public String getUsername() {
+        return user.getUsername();
     }
 
     @Override
-    public String getUsername() {
-        return user.getUsername();
+    public String getPassword() {
+        return user.getPassword();
     }
 
     @Override
@@ -59,4 +59,5 @@ public class PrincipalDetails implements UserDetails {
         });
         return authorities;
     }
+
 }
