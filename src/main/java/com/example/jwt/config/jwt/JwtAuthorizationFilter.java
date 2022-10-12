@@ -21,11 +21,11 @@ import java.io.IOException;
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
-        this.userRepository = this.userRepository;
+        this.userRepository = userRepository;
     }
 
     // 인증이나 권한이 필요한 주소요청이 있을 때 해당 필터를 타게 됨.
@@ -44,8 +44,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        log.info("header = {}", header);
-
         String token = request.getHeader(JwtProperties.HEADER_STRING)
                 .replace(JwtProperties.TOKEN_PREFIX, "");
 
@@ -55,8 +53,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                 .getClaim("username").asString();
 
+        log.info("username : {}", username);
+
         if (username != null) {
+
+            log.info("username22 : {}", username);
+
             User user = userRepository.findByUsername(username);
+
+            log.info("user22 : {}", user.getUsername());
 
             // 인증은 토큰 검증시 끝. 인증을 하기 위해서가 아닌 스프링 시큐리티가 수행해주는 권한 처리를 위해
             // 아래와 같이 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 세션에 저장!
