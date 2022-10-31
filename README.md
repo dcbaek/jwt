@@ -1,4 +1,11 @@
 # jwt
+
+jwt 진행 순서
+1. 클라이언트 사용자가 아이디, 패스워드를 통해 웹서비스 인증.
+2. 서버에서 서명된(Signed) JWT를 생성하여 클라이언트에 응답으로 돌려주기
+3. 클라이언트가 서버에 데이터를 추가적으로 요구할 때 JWT를 HTTP Header에 첨부
+4. 서버에서 클라이언트로부터 온 JWT를 검증
+
 1.사용자가 http request.
 
 2-1.로그인 요청이라면 (UsernamePasswordAuthenticationFilter를 상속한) AuthenticationFilter가
