@@ -4,17 +4,19 @@ import com.example.jwt.config.auth.PrincipalDetails;
 import com.example.jwt.model.User;
 import com.example.jwt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 // @CrossOrigin  // CORS 허용
-public class RestApiController {
+public class UserController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;

@@ -1,11 +1,10 @@
 package com.example.jwt.config.auth;
 
 import com.example.jwt.model.User;
-import lombok.Data;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.awt.print.PrinterIOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
